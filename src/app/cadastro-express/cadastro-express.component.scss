@@ -1,0 +1,97 @@
+.secao-cadastro {
+  background-color:#fff;
+  color: #1A3646;
+  height: 100%;
+  overflow: hidden;
+}
+
+.cadastroContainer{
+  margin-top: 10px;
+  background-color: white;
+}
+
+.cadastroField{
+  margin-bottom: 5%;
+}
+
+.mat-accordion .mat-expansion-panel:not(.mat-expanded), .mat-accordion .mat-expansion-panel:not(.mat-expansion-panel-spacing){
+  background-color:#CDD2D4;
+  padding: 10px;
+  margin-bottom: 5px;
+  border-left: 5px;
+  border-left: 8px solid #1A3646;
+  border-radius: 0px;
+}
+
+.mat-expansion-panel-header-title{
+  color: #1A3646;
+  font-size: 1.15em;
+  font-weight: 600;
+}
+
+.mat-expansion-panel:not([class*='mat-elevation-z']) {
+  box-shadow: none;
+
+}
+
+mat-expansion-panel ng-tns-c10-1 mat-expanded mat-expansion-panel-spacing{
+  background-color: #00AC9C;
+  border-left: 8px solid #1A3646;
+}
+
+.padding-top-buttons {
+  padding-top: 27px;
+}
+
+.mat-dialog-actions {
+    justify-content: flex-end;
+}
+
+.button-format-green {
+  background-color:#ff9800;
+  color:white;
+  padding: 6px 12px;
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  margin-top: 10px;
+}
+
+.button-format {
+  padding: 6px 12px !important;
+  line-height: normal !important;
+  background-color:#40ad6d;
+  color:white;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
+
+.button-save {
+  color: #fff;
+}
+
+.button-format-close {
+  background-color: #ff1e19;
+  color:white;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  border-radius: 50px !important;
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2);
+  width: 47px;
+  line-height: normal !important;
+  height: 45px;
+}
+
+.bg-light-yellow {
+  background-color: #fcf7de;
+}
+
+.bg-light-yellow img {
+    max-width: 70px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+}

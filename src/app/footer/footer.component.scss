@@ -1,0 +1,21 @@
+.footer{
+    background-color: #728393;
+}
+
+th{
+    margin-left: 5%;
+}
+
+p{
+    margin-bottom: 0px; 
+    margin-left:40%; 
+    font-size: 1em;
+}
+
+@media only screen and (max-width: 600px) {
+    p{
+        
+        margin-left:0%; 
+  
+    }
+  }

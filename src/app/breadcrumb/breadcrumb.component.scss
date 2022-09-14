@@ -1,0 +1,132 @@
+$green: #40ad6d;
+
+@mixin inline {
+  display: inline-block;
+  *display: inline;
+  zoom: 1;
+  vertical-align: top;
+}
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: #fff;
+  color: #757575;
+}
+
+a.disabled {
+  pointer-events: none;
+  cursor: default;
+}
+
+.description {
+}
+
+@media only screen and (max-width: 1002px) {
+  ul.breadcrumbs {
+    margin: 0px 0px 60px 0px !important;
+  }
+}
+
+@media only screen and (max-width: 510px) {
+  ul.breadcrumbs {
+    margin: 0px 0px 140px 0px !important;
+  }
+}
+
+ul.breadcrumbs {
+  margin: 0px 0px 0px;
+  padding: 0px;
+  font-size: 0px;
+  line-height: 0px;
+  @include inline;
+  height: 40px;
+
+  li {
+    position: relative;
+    margin: 0px 0px;
+    padding: 0px;
+    list-style: none;
+    list-style-image: none;
+    @include inline;
+    border-left: 1px solid #ccc;
+    transition: 0.3s ease;
+
+    &:hover {
+      &:before {
+        border-left: 10px solid $green;
+      }
+
+      a {
+        color: #fff;
+        background: $green;
+      }
+
+    }
+
+    &:before {
+      content:"";
+      position: absolute;
+      right: -9px;
+      top: -1px;
+      z-index: 20;
+      border-left: 10px solid #fff;
+      border-top: 22px solid transparent;
+      border-bottom: 22px solid transparent;
+      transition: 0.3s ease;
+    }
+
+    &:after {
+      content:"";
+      position: absolute;
+      right: -10px;
+      top: -1px;
+      z-index: 10;
+      border-left: 10px solid #ccc;
+      border-top: 22px solid transparent;
+      border-bottom: 22px solid transparent;
+    }
+
+
+    &.active {
+
+      a {
+        color: #fff;
+        background: $green;
+      }
+    }
+
+    &.first {
+      border-left: none;
+
+      }
+
+    &.last {
+
+      &:before {
+        display: none;
+      }
+      &:after {
+        display: none;
+      }
+
+      a {
+        padding-right: 20px;
+        border-radius: 0px 40px 40px 0px;
+      }
+    }
+
+    a {
+      display: block;
+      font-size: 16px;
+      line-height: 40px;
+      color: #757575;
+      padding: 0px 15px 0px 25px;
+      text-decoration: none;
+      background: #fff;
+      border: 1px solid #ddd;
+      white-space:nowrap;
+      overflow: hidden;
+      transition: 0.3s ease;
+    }
+  }
+}

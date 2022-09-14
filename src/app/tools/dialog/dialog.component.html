@@ -1,0 +1,56 @@
+<h2 mat-dialog-title *ngIf="descricao !=='inventario'">{{ titulo }}</h2>
+<h2 mat-dialog-title *ngIf="descricao ==='inventario'">Restrição na Candidatura da Vaga : <b>{{ titulo }}</b></h2>
+<div mat-dialog-content *ngIf="descricao !== 'termos-uso' && descricao !== 'inventario' ">
+    {{ descricao }}
+</div>
+
+<div mat-dialog-content *ngIf="descricao == 'termos-uso'">
+    <p class="mt-3 text-justify">
+        A Reachr apoia a inclusão de diversidade dentro e fora do ambiente de trabalho, incentivando a conscientização de sua importância e impacto na sociedade. Pela natureza do nosso negócio de recrutar e avaliar pessoas, entendemos que este é um caminho acelerar
+        a inclusão.
+    </p>
+</div>
+
+<div mat-dialog-content *ngIf="descricao == 'inventario'">
+    <p class="mt-3 text-justify">
+        A vaga exige que o <b>inventário comportamental</b> esteja preenchido.
+    </p>
+</div>
+
+
+<ngx-doc-viewer url="{{ viewer }}" *ngIf="viewer" viewer="office" class="viewer-doc">
+</ngx-doc-viewer>
+
+
+<div mat-dialog-actions *ngIf="descricao == 'inventario'">
+    <div *ngFor="let botao of botoes">
+        <button class="mx-1" mat-raised-button color="{{ botao.color }}" *ngIf="botao.funcao == 'confirmacao'" [mat-dialog-close]="true">
+      {{ botao.texto }}
+    </button>
+        <button class="mx-1" mat-raised-button color="{{ botao.color }}" *ngIf="botao.funcao == 'fechar'" (click)="close()">
+      {{ botao.texto }}
+    </button>
+    </div>
+</div>
+
+<div mat-dialog-actions *ngIf="descricao != 'inventario'">
+    <div *ngFor="let botao of botoes">
+        <button class="mx-1" mat-raised-button color="{{ botao.color }}" *ngIf="botao.funcao == 'confirmacao'" [mat-dialog-close]="true">
+    {{ botao.texto }}
+  </button>
+        <button class="mx-1" mat-raised-button color="{{ botao.color }}" *ngIf="botao.funcao == 'fechar'" (click)="close()">
+    {{ botao.texto }}
+  </button>
+    </div>
+</div>
+
+<div class="row" mat-dialog-actions *ngIf="descricao ==='inventario'">
+
+    <div class="col text-center">
+        <button class="mx-1" style="background-color: #8dbac6;" mat-raised-button color="accent" (click)="corrigir()">
+          Preencher Inventário Comportamental
+        </button>
+    </div>
+
+
+</div>

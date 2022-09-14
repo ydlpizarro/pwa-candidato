@@ -1,0 +1,54 @@
+<div class="photo-frame">
+  <div class="col-12 col-sm-7 col-lg-3 img-thumbnail" (click)='openModalImagePerfil(imageCropTemplate)'>
+    <img *ngIf="imagemPerfil" [src]="imagemPerfil | replaceHttp" class="img-size-sm img-fluid">
+    <img *ngIf="!imagemPerfil" [src]="imagemUrl | replaceHttp" class="img-size-sm img-fluid">
+<!--    <button mat-button mat-raised-button color="primary">-->
+<!--      <span class="button-format mat-button-wrapper">-->
+<!--        <mat-icon>add</mat-icon> Atualizar foto-->
+<!--      </span>-->
+<!--    </button>-->
+    <div class="text-center">
+      <mat-button-toggle class="btn btn-danger button-format" color="primary">
+        <mat-icon>add</mat-icon>
+        Atualizar Foto
+      </mat-button-toggle>
+  </div>
+</div>
+
+<ng-template #imageCropTemplate let-foo>
+  <h2 matDialogTitle>Selecione e atualize a foto do seu perfil</h2>
+  <mat-dialog-content>
+    <div class="row">
+      <div class="col-12 col-sm-8 col-lg-9 text-center">
+        <p class="mb-2"><input type="file" id="upload-input" (change)="fileChangeEvent($event)"/></p>
+        <p>
+          <small id="curriculoHelp" class="form-text text-muted">
+            Tipos de arquivos aceito: png e jpg. O tamanho máximo permitido do arquivo é de 3MB.
+          </small>
+        </p>
+        <image-cropper
+          [imageChangedEvent]="imageChangedEvent"
+          [maintainAspectRatio]="true"
+          [resizeToWidth]="400"
+          [resizeToHeight]="400"
+          format="png"
+          outputType="both"
+          (imageCropped)="imageCropped($event)"
+          (imageLoaded)="imageLoaded()"
+          (cropperReady)="cropperReady()"
+          (loadImageFailed)="loadImageFailed()"
+        ></image-cropper>
+      </div>
+      <div class="col-12 col-sm-4 col-lg-3">
+        <p><strong>Prévia da foto:</strong></p>
+
+        <img *ngIf="croppedImage" [src]="croppedImage" class="img-fluid img-thumbnail img-size-sm" />
+        <img *ngIf="!croppedImage" [src]="imagemUrl | replaceHttp" class="img-fluid img-thumbnail img-size-sm" />
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button class="my-2" mat-button mat-raised-button color="warn" mat-dialog-close>Cancelar</button>
+    <button class="my-2" mat-button mat-raised-button color="accent" [mat-dialog-close]="true">Salvar foto do perfil</button>
+  </mat-dialog-actions>
+</ng-template>

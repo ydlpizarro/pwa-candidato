@@ -1,0 +1,28 @@
+image: brunolopesti/node-ftp:version1.0
+
+pipelines:
+  custom:
+    deploy-prod:
+      - step:
+          caches:
+            - node
+          script:
+            - npm install
+            - ng build --prod --buildOptimizer --baseHref=/novo-candidato/
+            - echo "$(ls -la dist/candidato/)"
+            - sed -i '/index.html":/d' dist/candidato/ngsw.json
+            - sed -i '/styles.6510c981f84b0e8e41a4.css":/d' dist/candidato/ngsw.json
+            - sed -i '/runtime.26209474bfa8dc87a77c.js":/ s/,//g' dist/candidato/ngsw.json
+            - lftp -e "mirror -R dist/candidato/ /site/wwwroot/novo-candidato/; bye" -u $FTP_USER_PROD,$FTP_PASSWORD_PROD $FTP_REMOTE_HOST_PROD
+    deploy-qa:
+      - step:
+          caches:
+            - node
+          script:
+            - npm install
+            - ng build --prod --buildOptimizer --baseHref=/novo-candidato/
+            - echo "$(ls -la dist/candidato/)"
+            - sed -i '/index.html":/d' dist/candidato/ngsw.json
+            - sed -i '/styles.6510c981f84b0e8e41a4.css":/d' dist/candidato/ngsw.json
+            - sed -i '/runtime.26209474bfa8dc87a77c.js":/ s/,//g' dist/candidato/ngsw.json
+            - lftp -e "mirror -R dist/candidato/ /site/wwwroot/novo-candidato/; bye" -u $FTP_USER_QA,$FTP_PASSWORD_QA $FTP_REMOTE_HOST_QA

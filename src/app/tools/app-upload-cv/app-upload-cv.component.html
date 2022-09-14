@@ -1,0 +1,35 @@
+<label for="upload-file" class="button-format mat-raised-button mat-primary upload-button">
+  <span class="mat-button-wrapper">
+    <mat-icon >cloud_upload </mat-icon>
+    <span *ngIf="!curriculo"> Anexar currículo</span>
+    <span *ngIf="curriculo"> Atualizar currículo</span>
+    <input type="file" class="upload-input" name="file" id="upload-file" ng2FileSelect [uploader]="uploader" aria-describedby="curriculoHelp" style="display: none;"/>
+  </span>
+</label>
+
+<button type="button" mat-raised-button type="button" (click)="downCurriculo(curriculo)" type="button"  *ngIf="curriculo" style=" width: 100%; background-color: #8dbac6; color: white;">
+  <span class="mat-button-wrapper">
+    <mat-icon >cloud_download</mat-icon> Baixar curriculo atual
+  </span>
+</button>
+
+<!--<label  for="upload-file" class=" btn button-format">-->
+<!--  <mat-button-toggle class="" >-->
+<!--    <mat-icon>add</mat-icon>-->
+<!--    <span *ngIf="!curriculo">Anexar currículo</span>-->
+<!--    <span *ngIf="curriculo">Atualizar currículo</span>-->
+<!--    <input type="file" class="upload-input" name="file" id="upload-file" ng2FileSelect [uploader]="uploader" aria-describedby="curriculoHelp"/>-->
+<!--  </mat-button-toggle>-->
+<!--</label>-->
+
+<p>
+  <small id="curriculoHelp" class="form-text text-muted">
+    Tipos de arquivos aceito: pdf, doc, docx e txt.<br>O tamanho máximo do arquivo é de 3MB.
+  </small>
+</p>
+
+<div class="progress my-2" style="height: 36px;" [hidden]="!uploader.getNotUploadedItems().length">
+  <div class="progress-bar progress-bar-striped" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }">
+    {{ uploader.progress + '%' }}
+  </div>
+</div>

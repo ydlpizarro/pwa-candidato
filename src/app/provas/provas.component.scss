@@ -1,0 +1,59 @@
+.secao-provas {
+    background-color: #fff;
+    color: #1A3646;
+    height: 100%;
+    overflow: hidden;
+}
+
+.todas-as-provas {
+    display: inline-block;
+    position: relative;
+}
+
+.botao-conf {
+    width: 315px;
+    margin: 10px;
+    background-color: #72b0d3;
+    color: white;
+}
+
+.prova-feita {
+    background-color: #40ad6d!important;
+    color: #fff!important;
+    width: 315px;
+    margin: 10px;
+}
+
+.prova-obrigatoria {
+    background-color: #ff9800!important;
+    color: #fff!important;
+    width: 315px;
+    margin: 10px;
+}
+
+.prova-n-feita {
+    color: #fff!important;
+    width: 315px;
+    margin: 10px;
+    background-color: #72b0d3!important
+}
+
+.prova-error-server {
+    color: rgba(0, 0, 0, 0.26);
+    background-color: rgba(0, 0, 0, 0.12);
+    width: 315px;
+    margin: 10px;
+}
+
+.prova-n-feita-portugues {
+    color: #fff!important;
+    width: 315px;
+    margin: 10px;
+    background-color: #FF9F00!important
+}
+
+@media only screen and (max-width: 565px) {
+    .botao-conf {
+        margin: 10px auto 10px auto !important;
+    }
+}

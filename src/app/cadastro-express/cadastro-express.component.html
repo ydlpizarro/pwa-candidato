@@ -1,0 +1,598 @@
+<div class="secao-cadastro">
+    <form [formGroup]="cadastroExpress" class="container cadastroContainer" autocomplete="off" appPreventEnterSubmit>
+        <p>Estas são as informações essencias para que as empresas avaliem o seu perfil corretamente.</p>
+        <div class="cadastroField">
+            <p class="fieldTitle">Dados Básicos</p>
+            <div class="row align-items-end px-3">
+                <div class="col-12 col-sm-6 col-lg-8">
+                    <app-upload-photo [imagemPerfil]="cadastroExpress.get('urlFoto').value"></app-upload-photo>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-4 text-right pr-3 padding-top-buttons">
+                    <app-upload-cv [curriculo]="cadastroExpress.get('urlCurriculo').value"></app-upload-cv>
+                </div>
+            </div>
+
+
+            <mat-form-field class="col-12 col-sm-6 col-lg-6" appearance="outline">
+                <mat-label>Nome completo</mat-label>
+                <input formControlName="nomeCompleto" matInput [minlength]="3" [maxlength]="100">
+                <mat-error *ngIf="cadastroExpress.get('nomeCompleto').errors?.required">
+                    Digite seu nome Completo
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field color="teal" class="col-12 col-sm-6 col-lg-3" appearance="outline">
+                <mat-label>Data de Nascimento</mat-label>
+                <input formControlName="dataNascimento" [matDatepicker]="datepickerdataNascimento" matInput placeholder="DD/MM/YYYY" customInputDateMask>
+                <mat-datepicker-toggle [for]="datepickerdataNascimento" matSuffix></mat-datepicker-toggle>
+                <mat-datepicker #datepickerdataNascimento></mat-datepicker>
+                <mat-error *ngIf="cadastroExpress.get('dataNascimento').errors?.required">
+                    Insira uma data
+                </mat-error>
+            </mat-form-field>
+
+            <!---Campo RG-->
+            <mat-form-field class="col-12 col-sm-6 col-lg-3" appearance="outline">
+                <mat-label>RG</mat-label>
+                <input formControlName="rg" [maxlength]="11" matInput>
+            </mat-form-field>
+            <!--Campo Orgão Emissor-->
+            <mat-form-field class="col-12 col-sm-6 col-lg-3" appearance="outline">
+                <mat-label>Orgão emissor</mat-label>
+                <input formControlName="orgaoEmissorRg" matInput [minlength]="2" [maxlength]="6">
+            </mat-form-field>
+            <!----Campo data expedição-->
+            <mat-form-field color="teal" class="col-12 col-sm-6 col-lg-3" appearance="outline">
+                <mat-label>Data de expedição</mat-label>
+                <input formControlName="dataExpedicaoRg" matInput [matDatepicker]="dataExpedicaoRg" placeholder="DD/MM/YYYY" customInputDateMask>
+                <mat-datepicker-toggle matSuffix [for]="dataExpedicaoRg"></mat-datepicker-toggle>
+                <mat-datepicker #dataExpedicaoRg></mat-datepicker>
+                <mat-error *ngIf="cadastroExpress.get('dataExpedicaoRg').errors?.required">
+                    Insira uma data
+                </mat-error>
+            </mat-form-field>
+
+            <!----Campo data expedição-->
+            <mat-form-field class="col-12 col-sm-6 col-lg-3" appearance="outline">
+                <mat-label>CPF</mat-label>
+                <input formControlName="cpf" mask="000.000.000-00" matInput>
+                <mat-error *ngIf="cadastroExpress.get('cpf').getError('cpfNotValid')">
+                    O CPF não é válido.
+                </mat-error>
+                <mat-error *ngIf="cadastroExpress.get('cpf').errors?.required">
+                    Insira o número do seu CPF.
+                </mat-error>
+            </mat-form-field>
+            <!----Campo PIS-->
+            <mat-form-field class="col-12 col-sm-6 col-lg-3" appearance="outline">
+                <mat-label>Numero do PIS</mat-label>
+                <input formControlName="pis" mask="000.00000.00-0" matInput>
+            </mat-form-field>
+
+            <mat-form-field class="col-12 col-sm-6 col-lg-3" appearance="outline">
+                <mat-label>Contato</mat-label>
+                <input mask="(00) 00000-0000" type="tel" matInput formControlName="contato">
+                <mat-error *ngIf="cadastroExpress.get('contato').errors?.required">
+                    Insira um número para contato.
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-12 col-sm-6 col-lg-3" appearance="outline">
+                <mat-label>CEP</mat-label>
+                <input mask="00000-000" type="text" matInput formControlName="cep">
+                <mat-error *ngIf="cadastroExpress.get('cep').errors?.required">
+                    Insira o CEP.
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-12 col-sm-6 col-lg-3" appearance="outline" formArrayName="perfil">
+                <mat-label>Perfil de Área de Atuação</mat-label>
+                <mat-select formControlName="RowKey">
+                    <mat-option [value]=""></mat-option>
+                    <ng-container *ngFor="let item of listaClusters">
+                        <mat-option *ngIf="item.RowKey != '0003'" [value]="item.RowKey">
+                            <span>
+                                <i class="fa {{(item.RowKey == '0001') ? 'fa-graduation-cap' : (item.RowKey == '0002') ? 'fa-briefcase' : (item.RowKey == '0003') ? 'fa-money' : (item.RowKey == '0005') ? 'fa-code' : (item.RowKey == '0008') ? 'fa-calculator' : (item.RowKey == '0009') ? 'fa-mobile' : (item.RowKey == '0010') ? 'fa-building' : (item.RowKey == '0011') ? 'fa-balance-scale' : (item.RowKey == '0012') ? 'fa-cogs' : (item.RowKey == '0013') ? 'fa-cubes' : (item.RowKey == '0014') ? 'fa-black-tie' : (item.RowKey == '0015') ? 'fa-archive' : (item.RowKey == '0016') ? 'fa-clipboard' : (item.RowKey == '0017') ? 'fa-rocket' : (item.RowKey == '0018') ? 'fa-credit-card' : (item.RowKey == '0019') ? 'fa-plus-square' : 'fa-user-plus'}} fa-1x"></i>
+                            </span>
+                            {{item.Descricao}}
+                        </mat-option>
+                    </ng-container>
+                </mat-select>
+                <mat-error *ngIf="cadastroExpress.get('perfil.RowKey').errors?.required">
+                    Escolha a área de atuação que melhor se encaixa ao seu perfil
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-12 col-sm-6 col-lg-3" appearance="outline">
+                <mat-label>Cargo</mat-label>
+                <input matInput placeholder="Administrador de empresas" formControlName="perfilProfissional">
+                <mat-error *ngIf="cadastroExpress.get('perfilProfissional').errors?.required">
+                    Insira um cargo
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-12" appearance="outline" style="height: 100px;">
+                <mat-label>Resumo Profissional</mat-label>
+                <textarea matInput formControlName="resumoProfissional"></textarea>
+            </mat-form-field>
+        </div>
+
+        <div class="cadastroField">
+            <div class="col-12 col-sm-12 col-lg-12">
+                <p class="py-3">
+                    <span class="fieldTitle">
+            Experiência Profissional
+          </span>
+                    <span class="float-lg-right text-right">
+            <mat-slide-toggle class="mt-1" [checked]="semExperiencia" [disabled]="desabilitarCampoSemExperiencia" (change)="habilitarDesabitarBlocoExperiencia($event)">
+              <strong>Não possuo experiência</strong>
+            </mat-slide-toggle>
+            <br>
+            <small>(Primeiro emprego)</small>
+          </span>
+                </p>
+            </div>
+            <div formArrayName="experiencias">
+                <div *ngFor="let experiencia of getExperiencias.controls; let i = index;">
+                    <div class="col-12" [formGroupName]="i">
+                        <mat-form-field class="col-12 col-sm-6 col-lg-6" appearance="outline">
+                            <mat-label>Nome da Empresa</mat-label>
+                            <input matInput formControlName="nomeEmpresa">
+                        </mat-form-field>
+                        <!--TESTE-->
+                        <mat-form-field class="col-12 col-sm-6 col-lg-3" appearance="outline">
+                            <mat-label>Cargo</mat-label>
+                            <input matInput formControlName="cargo">
+                        </mat-form-field>
+                        <mat-form-field class="col-12 col-sm-6 col-lg-3" appearance="outline">
+                            <mat-label>Área de atuação</mat-label>
+                            <mat-select formControlName="areaAtuacaoRowKey">
+                                <mat-option *ngFor="let areaAtuacao of listaAreaDeAtuacao" [value]="areaAtuacao.RowKey">
+                                    {{areaAtuacao.Descricao}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field class="col-12 col-sm-6 col-lg-3" appearance="outline">
+                            <mat-label>Data Início</mat-label>
+                            <input matInput formControlName="inicio" [matDatepicker]="datepickerExperienciaInicio" placeholder="DD/MM/YYYY" customInputDateMask>
+                            <mat-datepicker-toggle [for]="datepickerExperienciaInicio" matSuffix></mat-datepicker-toggle>
+                            <mat-datepicker #datepickerExperienciaInicio></mat-datepicker>
+                        </mat-form-field>
+
+                        <mat-form-field class="col-12 col-sm-6 col-lg-3" appearance="outline">
+                            <mat-label>Data Saída</mat-label>
+                            <input matInput formControlName="final" [matDatepicker]="datepickerExperienciafinal" [disabled]="experiencia.atual" placeholder="DD/MM/YYYY" customInputDateMask>
+                            <mat-datepicker-toggle [for]="datepickerExperienciafinal" matSuffix></mat-datepicker-toggle>
+                            <mat-datepicker #datepickerExperienciafinal></mat-datepicker>
+                        </mat-form-field>
+
+                        <mat-slide-toggle formControlName="atual" type="checkbox" [(ngModel)]="experiencia.atual">Atual</mat-slide-toggle>
+
+                        <mat-button-toggle class="button-format-close" (click)="openDialog(i, 'experiencia')">
+                            <mat-icon>delete</mat-icon>
+                        </mat-button-toggle>
+
+                        <div class="text-center">
+                            <mat-button-toggle class="btn button-format" (click)="adicionarNovoCargoEmpresa(experiencia, i);">
+                                <mat-icon>content_copy</mat-icon>
+                                Adicionar outro cargo
+                            </mat-button-toggle>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <mat-button-toggle (click)="addExperiencia()" class="text-center button-format-green">
+                    <mat-icon>add</mat-icon>
+                    Adicionar outra empresa
+                </mat-button-toggle>
+            </div>
+        </div>
+
+        <div class="cadastroField">
+            <div class="col-12 col-sm-6 col-lg-8">
+                <p class="fieldTitle">Formação Acadêmica</p>
+            </div>
+            <div formArrayName="formacoes">
+                <div *ngFor="let formacao of getFormacoes.controls; let i = index;">
+                    <div [formGroupName]="i">
+                        <mat-form-field class="col-12 col-sm-6 col-lg-6" appearance="outline">
+                            <mat-label>Instituição</mat-label>
+                            <input formControlName="instituicao" matInput required>
+                        </mat-form-field>
+
+                        <mat-form-field class="col-12 col-sm-6 col-lg-6" appearance="outline">
+                            <mat-label>Curso</mat-label>
+                            <input matInput formControlName="curso" required>
+                        </mat-form-field>
+
+                        <mat-form-field class="col-12 col-sm-6 col-lg-3" appearance="outline">
+                            <mat-label>Nível</mat-label>
+                            <select matNativeControl formControlName="nivel" required>
+                <option value="">Selecione</option>
+                <option value="medio">Ensino Médio</option>
+                <option value="tecnico">Ensino Técnico</option>
+                <option value="superior">Graduação</option>
+                <option value="pos">Pós-Graduação</option>
+              </select>
+                        </mat-form-field>
+
+                        <mat-form-field class="col-12 col-sm-6 col-lg-3" appearance="outline">
+                            <mat-label>Status</mat-label>
+                            <mat-select formControlName="rowKeyStatusCurso">
+                                <mat-option *ngFor="let status of listaStatusFormacaoAcademica" [value]="status.RowKey">
+                                    {{status.Descricao}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <mat-form-field class="col-12 col-sm-6 col-lg-3" appearance="outline">
+                            <mat-label>Data Início</mat-label>
+                            <input matInput formControlName="inicio" [matDatepicker]="datepickerFormacaoInicio" placeholder="DD/MM/YYYY" customInputDateMask required>
+                            <mat-datepicker-toggle [for]="datepickerFormacaoInicio" matSuffix></mat-datepicker-toggle>
+                            <mat-datepicker #datepickerFormacaoInicio></mat-datepicker>
+                        </mat-form-field>
+
+                        <mat-form-field class="col-12 col-sm-6 col-lg-3" appearance="outline">
+                            <mat-label>Término</mat-label>
+                            <input matInput formControlName="final" [matDatepicker]="datepickerFormacaoFinal" placeholder="DD/MM/YYYY" customInputDateMask>
+                            <mat-datepicker-toggle [for]="datepickerFormacaoFinal" matSuffix></mat-datepicker-toggle>
+                            <mat-datepicker #datepickerFormacaoFinal></mat-datepicker>
+                        </mat-form-field>
+
+                        <div class="text-center">
+                            <mat-button-toggle class="button-format-close" (click)="openDialog(i, 'formacao')">
+                                <mat-icon>delete</mat-icon>
+                            </mat-button-toggle>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <mat-button-toggle class="button-format-green" (click)="addFormacao()">
+                    <mat-icon>add</mat-icon>
+                    Adicionar outra formação
+                </mat-button-toggle>
+            </div>
+        </div>
+
+        <div class="cadastroField">
+            <div class="col-12 col-sm-6 col-lg-8">
+                <p class="fieldTitle">Idiomas</p>
+            </div>
+            <div formArrayName="idiomas">
+                <div *ngFor="let idioma of getIdiomas.controls; let x = index;">
+                    <div [formGroupName]="x">
+                        <mat-form-field appearance="outline" class="col-12 col-sm-6 col-lg-3">
+                            <mat-label>Idioma</mat-label>
+                            <mat-select formControlName="idiomaRowKey">
+                                <mat-option *ngFor="let id of listaIdiomas" [value]="id.RowKey">
+                                    {{id.Descricao}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="col-12 col-sm-6 col-lg-3">
+                            <mat-label>Nível</mat-label>
+                            <mat-select formControlName="nivelRowKey" required>
+                                <mat-option *ngFor="let nivel of nivelIdioma" [value]="nivel.RowKey">
+                                    {{ nivel.Descricao }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <div class="text-center">
+                            <mat-button-toggle class="button-format-close" (click)="openDialog(x, 'idioma')">
+                                <mat-icon>delete</mat-icon>
+                            </mat-button-toggle>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <mat-button-toggle (click)="addIdioma()" class="button-format-green">
+                        <mat-icon>add</mat-icon>
+                        Adicionar outro idioma
+                    </mat-button-toggle>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="cadastroField">
+            <div class="col-12 col-sm-6 col-lg-8">
+                <p class="fieldTitle">Competências </p>
+            </div>
+            <p> Ex: Excel, Word, Internet ...</p>
+            <mat-form-field class="example-chip-list col-12" appearance="outline">
+                <mat-chip-list #chipList>
+                    <div formArrayName="competencias">
+                        <mat-chip *ngFor="let competencia of getCompetencias.controls" [selectable]="selectable" [removable]="removable" (removed)="remove(competencia)">
+                            {{competencia.value}}
+                            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                        </mat-chip>
+                        <input [matChipInputFor]="chipList" matInput [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
+                    </div>
+                </mat-chip-list>
+            </mat-form-field>
+        </div>
+
+        <!-------Antigo Campo de Remuneração
+			<div class="cadastroField" formArrayName="remuneracao">
+				<p class="fieldTitle"> Remuneração </p>
+				<mat-form-field class="col-12 col-sm-6 col-lg-6" appearance="outline">
+				<mat-label>Remuneração atual ou última R$</mat-label>
+					<input matInput formControlName="remuneracao" prefix="R$ "  mask="0*.00" [minLength]="1" [maxLength]="10">
+				</mat-form-field>
+      -->
+        <div class="cadastroField" formArrayName="remuneracao">
+            <div class="col-12 col-sm-6 col-lg-8">
+                <p class="fieldTitle titleConfig"> Remuneração </p>
+            </div>
+            <mat-form-field class="col-12 col-sm-6 col-lg-6" appearance="outline">
+                <mat-label>Remuneração atual ou última R$</mat-label>
+                <input matInput formControlName="remuneracao" type="text" mask="separator.2" thousandSeparator="." separatorLimit="1000000">
+                <!---type = " text " mask = " separator.2 " thousandSeparator = " , "-->
+                <mat-error *ngIf="cadastroExpress.get('remuneracao.remuneracao').errors?.required">
+                    Digite o valor da sua remuneração atual ou a última
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-12 col-sm-6 col-lg-6" appearance="outline">
+                <mat-label>Modelo de Contratação</mat-label>
+                <mat-select formControlName="modeloContratacaoRowKey">
+                    <mat-option *ngFor="let tipo of listaTiposContratacao" [value]="tipo.RowKey">
+                        {{tipo.Descricao}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="col-12 col-sm-6 col-lg-6" appearance="outline">
+                <mat-label>Comissão mensal</mat-label>
+                <input matInput formControlName="comissaoMensal" mask="separator.2" thousandSeparator="." separatorLimit="1000000">
+            </mat-form-field>
+
+            <mat-form-field class="col-12 col-sm-6 col-lg-6" appearance="outline">
+                <mat-label>Bônus anual</mat-label>
+                <input matInput formControlName="bonusAnual" mask="separator.2" thousandSeparator="." separatorLimit="1000000">
+            </mat-form-field>
+        </div>
+
+        <div class="cadastroField">
+            <div class="col-12 col-sm-6 col-lg-8">
+                <p class="fieldTitle titleConfig">Benefícios atual ou último</p>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4" *ngFor="let beneficio of listaBeneficios; let i = index;" formArrayName="beneficios">
+                        <mat-checkbox [checked]="beneficio.selected" (change)="toggleBeneficios($event, beneficio)" class="example-margin">{{beneficio.Descricao}}</mat-checkbox>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cadastroField" formArrayName="outrasInformacoes">
+            <div class="col-12 col-sm-6 col-lg-8">
+                <p class="fieldTitle">Outras Informações</p>
+            </div>
+            <mat-form-field class="col-12 col-sm-6 col-lg-6" appearance="outline">
+                <mat-label>Disponibilidade para Viagens?</mat-label>
+                <mat-select formControlName="disponibilidadeViagem">
+                    <mat-option [value]=""></mat-option>
+                    <mat-option *ngFor="let item of listaDisponibilidadeViagem" [value]="item.Descricao">
+                        {{item.Descricao}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="col-12 col-sm-6 col-lg-6" appearance="outline">
+                <mat-label>Disponibilidade para Mudança?</mat-label>
+                <mat-select formControlName="disponibilidadeMudanca">
+                    <mat-option [value]=""></mat-option>
+                    <mat-option *ngFor="let item of listaDisponibilidadeMudanca" [value]="item.Descricao">
+                        {{item.Descricao}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="cadastroField">
+            <div class="col-12 col-sm-6 col-lg-8">
+                <p class="fieldTitle">Diversidade</p>
+            </div>
+            <div class="border bg-light-yellow mb-3">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-md-10">
+                            <div class="row my-3">
+                                <div class="col-12 col-md-2 text-center">
+                                    <p class="ml-3">
+                                        <img src="assets/img/exclamacao.png" alt="exclamação" class="img-fluid">
+                                    </p>
+                                </div>
+                                <div class="col-12 col-md-10 text-justify">
+                                    <p class="mb-2">
+                                        O preenchimento dos campos “LGTBQIA+” e “Etnia” é opcional e não interfere em suas participações de processos seletivos. Essas informações não serão divulgadas com as empresas contrantes, sendo utilizadas somente pela nossa inteligência artificial com
+                                        fins de aumentar a inclusão e a diversidade em processos seletivos.
+                                    </p>
+                                    <p class="mb-2">
+                                        <button class="btn btn-link text-body px-0" (click)="mostrarDialogTermosUso()"><strong>Clique aqui</strong></button> &nbsp;para ler os <strong>Termos de uso</strong>.
+                                    </p>
+                                    <p class="mb-0" formArrayName="diversidade">
+                                        <mat-checkbox formControlName="termoAceite" (change)="changeTermo($event)">
+                                            Li e aceito os <strong>Termos de uso</strong>
+                                        </mat-checkbox>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="border bg-light pt-3 mb-3">
+                <div *ngFor="let pcd of getPcd.controls; let i = index;">
+                    <div formArrayName="pcd">
+                        <div class="col-12" [formGroupName]="i">
+                            <h4 class="title">PcD</h4>
+                            <div class="row">
+                                <mat-form-field class="col-12 col-sm-6 col-lg-4" appearance="outline">
+                                    <mat-label>Tipo de deficiência</mat-label>
+                                    <mat-select matNativeControl formControlName="tipo" id="tipo">
+                                        <mat-option [value]=""></mat-option>
+                                        <mat-option *ngFor="let item of formDiversidade.pcd" [value]="item.Descricao">
+                                            {{item.Descricao}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field class="col-12 col-sm-6 col-lg-4" appearance="outline">
+                                    <mat-label>CID</mat-label>
+                                    <input matInput formControlName="cid" id="cid" type="text" />
+                                </mat-form-field>
+                            </div>
+                            <p class="text-center">
+
+                                <button class="mx-2" mat-raised-button color="warn" type="button" (click)="removerBoxPcd(i)" *ngIf="getPcd.controls.length != 1" [disabled]="!formDiversidade.termoUsoAceito">
+                  Remover categoria
+                </button>
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-center">
+                    <button mat-raised-button color="primary" type="button" (click)="incluirBoxPcd()" *ngIf="getPcd.controls.length == 1" [disabled]="!formDiversidade.termoUsoAceito">
+            Adicionar categoria
+          </button>
+                    <button class="mx-2" mat-raised-button color="primary" type="button" (click)="incluirBoxPcd()" *ngIf="getPcd.controls.length != 1" [disabled]="!formDiversidade.termoUsoAceito">
+            Adicionar categoria
+          </button>
+                </p>
+            </div>
+
+
+            <div class="border bg-light pt-3 mb-3">
+                <div class="container-fluid">
+                    <h4 class="title">Gênero</h4>
+                    <p>
+                        <mat-radio-group formControlName="genero" id="genero">
+                            <mat-radio-button *ngFor="let item of formDiversidade.genero" [value]="item.valor" class="mt-3 mr-3">
+                                {{item.Descricao}}
+                            </mat-radio-button>
+                        </mat-radio-group>
+                    </p>
+                    <p class="mb-0" formArrayName="diversidade">
+                        <mat-checkbox formControlName="transgenero" class="mr-3">
+                            Declaradamente transgênero¹
+                        </mat-checkbox>
+                    </p>
+                    <em class="form-text text-muted ml-4 mb-3">
+            ¹O preenchimento deste campo não é obrigatório e não interfere em sua participação de processos seletivos.
+          </em>
+                </div>
+            </div>
+
+            <div class="border bg-light pt-3 mb-3">
+                <div class="container-fluid" formArrayName="diversidade">
+                    <h4 class="title">Etnia</h4>
+                    <mat-checkbox formControlName="etnia" id="etnia">
+                        Declaradamente Preto (a), Pardo (a), Amarelo (a) ou Indígena¹
+                    </mat-checkbox>
+                    <em class="form-text text-muted ml-4 mb-3">
+            ¹O preenchimento deste campo não é obrigatório e não interfere em sua participação de processos seletivos.
+          </em>
+                </div>
+            </div>
+
+            <div class="border bg-light pt-3 mb-3">
+                <div class="container-fluid" formArrayName="diversidade">
+                    <h4 class="title">LGBTQIA+</h4>
+                    <mat-checkbox formControlName="sexualidade" id="sexualidade">
+                        Declaradamente pertencente à comunidade LGBTQIA+¹
+                    </mat-checkbox>
+                    <em class="form-text text-muted ml-4 mb-3">
+            ¹O preenchimento deste campo não é obrigatório e não interfere em sua participação de processos seletivos.
+          </em>
+                </div>
+            </div>
+        </div>
+
+        <div class="cadastroField" *ngIf="vaga?.Part.habilitarIndicacaoDeFuncionarios">
+            <div class="col-12 col-sm-6 col-lg-8">
+                <p class="fieldTitle titleConfig">Indicação de candidato atráves de voucher</p>
+            </div>
+            <mat-form-field class="col-12 col-sm-6 col-lg-6" appearance="outline">
+                <mat-label>Insira o código do voucher</mat-label>
+                <input formControlName="codigoIndicacaoFuncionario" matInput [minlength]="2" [maxlength]="20" [required]="vaga && vaga.Part && vaga.Part.codigoIndicacaoFuncionariosObrigatorio">
+            </mat-form-field>
+        </div>
+
+        <div>
+            <mat-error *ngIf="!cadastroExpress.valid || cadastroExpress.get('formacoes').value.length === 0" class="mb-2">
+                Não é possível salvar suas alterações. Existem campos obrigatório que não foram preenchidos corretamente!
+            </mat-error>
+            <ul>
+                <li *ngIf="cadastroExpress.get('codigoIndicacaoFuncionario').errors?.required">
+                    <mat-error>O código do voucher é obrigatório!</mat-error>
+                </li>
+                <li *ngIf="cadastroExpress.get('nomeCompleto').errors?.required">
+                    <mat-error>Informe seu Nome Completo!</mat-error>
+                </li>
+                <li *ngIf="cadastroExpress.get('dataNascimento').errors?.required">
+                    <mat-error>A Data de Nascimento não foi preenchida ou foi preenchida incorretamente!</mat-error>
+                </li>
+                <li *ngIf="cadastroExpress.get('contato').errors?.required">
+                    <mat-error>Informe o seu número de celular para Contato!</mat-error>
+                </li>
+                <mat-error *ngIf="cadastroExpress.get('cpf').getError('cpfNotValid')">
+                    <mat-error>O CPF não é válido.</mat-error>
+                </mat-error>
+                <li *ngIf="cadastroExpress.get('cpf').errors?.required">
+                    <mat-error>Informe seu CPF!</mat-error>
+                </li>
+                <li *ngIf="cadastroExpress.get('perfilProfissional').errors?.required">
+                    <mat-error>Informe o seu Cargo!</mat-error>
+                </li>
+                <li *ngIf="cadastroExpress.get('perfil.RowKey').errors?.required">
+                    <mat-error>Escolha a área de atuação que melhor se encaixa ao seu perfil!</mat-error>
+                </li>
+                <li *ngIf="cadastroExpress.get('cep').errors?.required">
+                    <mat-error>Informe o CEP da sua residência!</mat-error>
+                </li>
+                <li *ngIf="cadastroExpress.get('remuneracao.remuneracao').errors?.required">
+                    <mat-error>Informe o valor da sua Remuneração atual ou a última!</mat-error>
+                </li>
+                <li *ngIf="cadastroExpress.get('formacoes').value.length === 0">
+                    <mat-error>Adicione ao menos uma Formação Acadêmica!</mat-error>
+                </li>
+
+                <div *ngFor="let formacao of cadastroExpress.get('formacoes').value;let i=index">
+                    <li *ngIf="formacao.instituicao===''">
+                        <mat-error>O campo Instituição é obrigatório na Formação Acadêmica Nº {{i+1}}</mat-error>
+                    </li>
+                    <li *ngIf="formacao.curso===''">
+                        <mat-error>O campo Curso é obrigatório na Formação Acadêmica Nº {{i+1}}</mat-error>
+                    </li>
+                    <li *ngIf="formacao.nivel===''">
+                        <mat-error>O campo Nível é obrigatório na Formação Acadêmica Nº {{i+1}}</mat-error>
+                    </li>
+                    <li *ngIf="formacao.rowKeyStatusCurso===''">
+                        <mat-error>O campo Status é obrigatório na Formação Acadêmica Nº {{i+1}} {{formacao.statusCurso.value}}</mat-error>
+                    </li>
+                    <li *ngIf="formacao.inicio===''">
+                        <mat-error>O campo Data de Início é obrigatório na Formação Acadêmica Nº {{i+1}}</mat-error>
+                    </li>
+                </div>
+
+                <div *ngFor="let idioma of cadastroExpress.get('idiomas').value;let i=index">
+                    <li *ngIf="idioma.idiomaRowKey===''">
+                        <mat-error>O campo Idioma é obrigatório no Idioma Nº {{i+1}}</mat-error>
+                    </li>
+                    <li *ngIf="idioma.nivelRowKey===''">
+                        <mat-error>O campo Nivel é obrigatório no Idioma Nº {{i+1}}</mat-error>
+                    </li>
+                </div>
+            </ul>
+        </div>
+        <div style="width: 100%; text-align: center;">
+            <button mat-raised-button type="button" *ngIf="false" color="primary" (click)="salvar()" style="margin: 10px; background-color: #40ad6d; color: white;">
+        Salvar
+      </button>
+            <button mat-raised-button type="button" color="primary" (click)="salvarEcontinuar()" style="background-color: #40ad6d; color: white; margin:10px">
+        <mat-icon >arrow_forward</mat-icon> Avançar Etapa
+      </button>
+        </div>
+    </form>
+</div>

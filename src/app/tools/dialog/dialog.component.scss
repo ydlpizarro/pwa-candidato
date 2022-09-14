@@ -1,0 +1,16 @@
+.mat-dialog-actions {
+    justify-content: flex-end;
+}
+
+
+.viewer-doc {
+  width: 678px;
+  height: 350px;
+}
+
+@media only screen and (max-width: 500px) {
+  .viewer-doc {
+    width:100% !important;
+    height:50vh !important;
+  }
+}

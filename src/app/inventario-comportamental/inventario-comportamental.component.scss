@@ -1,0 +1,89 @@
+.perguntas-inventario {
+  background-color: #f1f1f2;
+  padding: 5px;
+  border: solid 3px #999999;
+  width: 90%;
+  height: 100%;
+  margin: auto;
+}
+
+.cadastroContainer{
+  padding: 15px;
+  background-color: white;
+}
+.cadastroContainerLaudo {
+  height: 700px;
+}
+
+.texto-principal{
+  position: absolute;
+  top: 130px;
+  left: 40%;
+  width: 60%;
+  color: #fff;
+  font-size: 30px;
+}
+
+.imagem-responsiva {
+  margin-top: 200px;
+  width: 80%;
+  background-size: cover;
+  background-position-y: 0px;
+  background-image: linear-gradient(to bottom, transparent 0%, #8d8c802e 0%), url("../../assets/img/bannersemfrase.png") !important;
+  min-height: unset;
+  max-height: unset;
+  height: 60%;
+  position: absolute;
+  left: 10%;
+  margin-right: -10%;
+}
+
+.img-fundo {
+  position: absolute;
+  width: 100%;
+  height: 93%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, .4);
+  z-index: 30;
+  overflow: auto;
+}
+
+@media only screen and (max-width: 650px){
+  .texto-principal {
+    position: absolute;
+    margin-left: -10px;
+    top: 120px;
+    width: 65%;
+    color: #fff;
+    font-size: 22px;
+  }
+
+  .imagem-responsiva{
+    background-repeat: no-repeat;
+    background-size: 195% 50%;
+    background-position-x: -100px;
+    margin-top: 350px;
+    width: 90%;
+    background-position-y: 0px;
+    background-image: linear-gradient(to bottom, transparent 0%, #8d8c802e 0%), url("../../assets/img/bannersemfrase.png") !important;
+    min-height: unset;
+    max-height: unset;
+    height: 90%;
+    position: absolute;
+    left: 5%;
+    margin-right: -5%;
+  }
+  .img-fundo {
+    position: absolute;
+    width: 100%;
+    height: 95%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, .4);
+    z-index: 30;
+    overflow: auto;
+  }
+
+
+}

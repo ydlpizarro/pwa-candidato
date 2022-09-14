@@ -1,0 +1,21 @@
+.visusalizar-curriculo {
+  border: solid 1px #cacaca;
+  background: #f7f7f7;
+}
+
+.cadastroContainer{
+  padding: 15px;
+  background-color: white;
+}
+
+.botao-conf {
+  background-color: #8dbac6;
+  color: white;
+}
+
+
+@media only screen and (max-width: 767px) {
+  .botao-conf {
+    margin: 0px auto 60px auto !important;
+  }
+}

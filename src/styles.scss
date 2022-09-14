@@ -1,0 +1,47 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'my-theme.scss';
+@import "~material-design-icons/iconfont/material-icons.css";
+@import './custom-theme';
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+.fieldTitle{
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 27px;
+  font-color: rgba(0, 0, 0, 0.87);
+}
+/*Configuração do margin dos titulos Experiencia Profissional, Remuneração e Beneficios*/
+.titleConfig {
+  margin-top: -5%;
+}
+
+.mat-button-toggle-label-content{
+  line-height: 0px !important;
+  padding: 0px !important
+}
+
+.mat-expansion-indicator::after {
+  color: #dee3e6;
+}
+
+.mat-progress-bar {
+  height: 30px;
+  width: 80%;
+
+}
+
+.mat-progress-bar .mat-progress-bar-fill::after {
+  background-color: #40ad6d !important;
+}
+
+.mat-progress-bar-buffer {
+  background-color: #e2e2e2;
+}
+
+.mat-checkbox-layout {
+  white-space: normal !important;
+}
+
+.mat-radio-label {
+  white-space: normal !important;
+}

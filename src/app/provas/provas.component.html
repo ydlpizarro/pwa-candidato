@@ -1,0 +1,49 @@
+<section class="secao-provas">
+    <article class="container">
+        <br>
+        <p>
+            As <b><span style="color: #ff9800">provas finalizadas em laranja</span></b> são provas exigidas pelos gestores das empresas contratantes.Para participar de seus<br/> processos seletivos, é necessário respondê-las.<br/> Responder às demais
+            provas é opcional. <b><span style="color: #72b0d3">Provas sinalizadas em azul</span></b> estão pendentes de sua resposta, enquanto as <br> <b><span style="color: #40ad6d">provas sinalizadas em verde</span></b> já foram respondidas.<br> Seleccione
+            a prova que deseja responder ou ver o resultado:</p>
+        <div *ngFor="let prova of provas; let i = index" class="todas-as-provas text-center ">
+            <ngx-spinner bdColor="rgba(51,51,51,0.1)" size="medium" color="#fff" type="ball-pulse-sync">
+                <p style="font-size: 20px; color: white">Loading...</p>
+            </ngx-spinner>
+            <button mat-raised-button type="button" (click)="abrirProvas(prova.chave)" class="botao-conf" name="{{prova.name}}" [ngClass]="{'prova-obrigatoria': (statusProva[i] == 'EMPTY'), 'prova-feita': (statusProva[i] == 'OK'), 'prova-error-server': (statusProva[i] == 'SERVER') }"
+                color="primary" *ngIf="(vagaProva[i] && statusProva[i] == 'EMPTY')" disabled="{{statusProva[i] == 'SERVER'}}">
+          {{ prova.nomeDaProva }}
+        </button>
+
+
+
+
+        </div>
+        <br>
+        <div *ngFor="let prova of provas; let i = index" class="todas-as-provas text-center ">
+            <ngx-spinner bdColor="rgba(51,51,51,0.1)" size="medium" color="#fff" type="ball-pulse-sync">
+                <p style="font-size: 20px; color: white">Loading...</p>
+            </ngx-spinner>
+            <button mat-raised-button type="button" (click)="abrirProvas(prova.chave)" class="botao-conf" name="{{prova.name}}" [ngClass]="{'prova-n-feita': (statusProva[i] == 'EMPTY'), 'prova-feita': (statusProva[i] == 'OK'), 'prova-error-server': (statusProva[i] == 'SERVER') }"
+                color="primary" *ngIf="(prova.chave !== 6 && prova.chave !== 7 && !(vagaProva[i] && statusProva[i] == 'EMPTY'))" disabled="{{statusProva[i] == 'SERVER'}}">
+        {{ prova.nomeDaProva }}
+      </button>
+
+
+            <button mat-raised-button type="button" class="botao-conf" color="primary" *ngIf="(prova.chave == 6 || prova.chave == 7)" disabled>
+        {{ prova.nomeDaProva }}
+      </button>
+        </div>
+
+
+        <p><span style="color: #ff9800">Obrigatórias</span> / <span style="color: #40ad6d">Relizadas</span> / <span style="color: #72b0d3">Pendentes</span></p>
+    </article>
+
+    <div style="width: 100%; text-align: center; margin-top: 15%">
+        <button mat-raised-button type="button" color="primary" routerLink="/anexar-curriculo" style="margin: 10px; background-color: #8dbac6; color: white;">
+      Voltar
+    </button>
+        <button mat-raised-button type="button" color="primary" (click)="salvar()" style="background-color: #40ad6d; color: white;">
+        <mat-icon >arrow_forward</mat-icon> Salvar e Finalizar
+    </button>
+    </div>
+</section>

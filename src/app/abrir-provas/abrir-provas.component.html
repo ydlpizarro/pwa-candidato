@@ -1,0 +1,57 @@
+<h2 mat-dialog-title *ngIf="(modal==='EMPTY')">
+    <div class="row">
+        <div class="col-12 col-md-4">
+            Prova de <strong>{{nomeprova}}</strong>
+        </div>
+        <div class="col-12 col-md-8 text-right">
+            A prova termina em: {{minutes}}:{{seconds}}
+        </div>
+    </div>
+</h2>
+
+<div mat-dialog-content *ngIf="(modal==='EMPTY')">
+    <div class="offset-1 col-10">
+      <p><b>{{ perguntaAtual.indice }})</b> {{ perguntaAtual.Descricao }}</p>
+        <mat-radio-group name="pergunta{{ perguntaAtual.indice }}" [(ngModel)]="alternativa">
+            <mat-radio-button class="col-12 text-justify" (change)="onItemChange($event, perguntaAtual.Tipo, resposta)" type="radio" *ngFor="let resposta of perguntaAtual.Respostas" [value]="resposta.Sequencial" checked="false">
+                {{ resposta.Letra }}) {{ resposta.Descricao }}
+            </mat-radio-button>
+        </mat-radio-group>
+
+    </div>
+    <br>
+    <br>
+    <p class=" text-center">
+        <button class="mx-1" mat-raised-button color="warn" (click)="close()">
+      Fechar
+    </button>
+        <button class="mx-1" mat-raised-button color="accent" (click)="finalizarProva(perguntaAtual.Tipo)" *ngIf="perguntaAtual.indice == quantPerguntas">
+      Finalizar prova
+    </button>
+        <button class="mx-1" mat-raised-button color="accent" (click)="proximaPergunta(perguntaAtual.indice)" *ngIf="perguntaAtual.indice < quantPerguntas">
+      Próxima pergunta
+    </button>
+        <button class="ocultar mx-1" mat-raised-button color="accent" disabled *ngIf="perguntaAtual.indice == quantPerguntas">
+      Próxima pergunta
+    </button>
+    </p>
+</div>
+
+<div mat-dialog-content *ngIf="(modal==='OK')">
+    <div class="col-12">
+        <p>- A prova de <strong>{{nomeprova}}</strong> foi preenchida no dia <strong>{{dataprova.substring(8,10)}} / {{dataprova.substring(5,7)}} / {{dataprova.substring(0,4)}}</strong> as <strong>{{dataprova.substring(11,16)}}</strong> horas.</p>
+        <p>- O resultado da prova foi de : <strong>{{notaprova}}</strong> pontos.</p>
+    </div>
+    <br>
+    <br>
+    <p class=" text-center">
+        <button class="mx-1" mat-raised-button color="warn" (click)="close()">
+      Fechar
+    </button>
+    </p>
+</div>
+
+
+<div mat-dialog-content>
+    <p>{{descricao}}</p>
+</div>

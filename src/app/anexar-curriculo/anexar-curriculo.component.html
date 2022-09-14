@@ -1,0 +1,36 @@
+<section class="conteiner cadastroContainer">
+    <div class="container">
+        <p>É extramamente importante que seus dados estejam atualizados em nossa plataforma, além de manter a versão mais recente de seu cúrriculo anexada.
+        </p>
+        <p>Verifique essas informações antes de prosseguir.</p>
+
+        <form [formGroup]="anexarCurriculo" class="cadastroContainer" autocomplete="off" appPreventEnterSubmit>
+
+            <div class="row">
+                <div class="col-md-8 visusalizar-curriculo" formControlName="nomeCompleto" ngModel="curriculo.nomeCompleto">
+                    Currículo: {{ nomeCompleto }}
+                </div>
+                <button mat-raised-button type="button" (click)="openAlertDialog()" color="primary" class="botao-conf"> <mat-icon>visibility</mat-icon>Visualizar</button>
+            </div>
+
+            <div class="row ">
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <app-upload-cv [curriculo]="anexarCurriculo.get('urlCurriculo').value"></app-upload-cv>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+    <div style="width: 100%; text-align: center; margin-top: 15%">
+        <button mat-raised-button type="button" color="primary" routerLink="/inventario-comportamental" style="margin: 10px; background-color: #8dbac6; color: white;">
+      Voltar
+    </button>
+        <button mat-raised-button type="button" *ngIf="false" color="primary" (click)="salvar()" style="margin: 10px; background-color: #8dbac6; color: white;">
+      Salvar
+    </button>
+        <button mat-raised-button type="button" color="primary" (click)="salvarEcontinuar()" style="background-color: #40ad6d; color: white;">
+      <mat-icon >arrow_forward</mat-icon> Próxima Etapa
+    </button>
+    </div>
+</section>

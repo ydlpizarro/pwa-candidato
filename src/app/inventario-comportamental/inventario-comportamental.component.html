@@ -1,0 +1,143 @@
+<section class="secao-cadastro">
+    <div class="img-fundo" *ngIf="this.laudo != null">
+
+        <div class="imagem-responsiva">
+            <span class="texto-principal">Seu laudo foi preenchido! Você já pode <b>avançar</b> para a próxima etapa <a style="background-color: #e88427; color: white;" routerLink="/anexar-curriculo">clicando aqui.</a></span>
+        </div>
+
+    </div>
+
+    <form [formGroup]="inventarioComportamental" [ngClass]="{'cadastroContainerLaudo': this.laudo != null, 'cadastroContainer': this.laudo == null}" autocomplete="off" appPreventEnterSubmit>
+        <div [hidden]="this.laudo != null">
+            <div>
+                <p class="fieldTitle">Dados Básicos</p>
+
+                <mat-form-field class="col-12 col-sm-6 col-lg-6" appearance="outline">
+                    <mat-label>Nome completo</mat-label>
+                    <input name="nome" id="nome" formControlName="nome" matInput [minlength]="3" [maxlength]="100" />
+                    <mat-error *ngIf="inventarioComportamental.get('nome').errors?.required">
+                        Digite o seu nome
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="col-12 col-sm-6 col-lg-3" appearance="outline">
+                    <mat-label>Cargo</mat-label>
+                    <input matInput placeholder="Administrador de empresas" name="cargo" id="cargo" formControlName="cargo" />
+                    <mat-error *ngIf="inventarioComportamental.get('cargo').errors?.required">
+                        Insira um cargo
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="col-12 col-sm-6 col-lg-3" appearance="outline">
+                    <mat-label>CPF</mat-label>
+                    <input name="cpf" id="cpf" formControlName="cpf" mask="000.000.000-00" matInput />
+                    <mat-error *ngIf="inventarioComportamental.get('cpf').getError('cpfNotValid')">
+                        O CPF não é válido.
+                    </mat-error>
+                    <mat-error *ngIf="inventarioComportamental.get('cpf').errors?.required">
+                        Insira o número do seu CPF.
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field color="teal" class="col-12 col-sm-6 col-lg-3" appearance="outline">
+                    <mat-label>Data de Nascimento</mat-label>
+                    <input name="dataNascimento" id="dataNascimento" formControlName="dataNascimento" [matDatepicker]="datepickerdataNascimento" matInput placeholder="DD/MM/YYYY" customInputDateMask />
+                    <mat-datepicker-toggle [for]="datepickerdataNascimento" matSuffix></mat-datepicker-toggle>
+                    <mat-datepicker #datepickerdataNascimento></mat-datepicker>
+                    <mat-error *ngIf="inventarioComportamental.get('dataNascimento').errors?.required">
+                        Digite sua data de nascimento
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="col-12 col-sm-6 col-lg-3" appearance="outline">
+                    <mat-label>Celular</mat-label>
+                    <input name="celular" id="celular" mask="(00) 00000-0000" type="tel" matInput formControlName="celular" />
+                    <mat-error *ngIf="inventarioComportamental.get('celular').errors?.required">
+                        Digite o seu telefone de celular
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="col-12 col-sm-6 col-lg-3" appearance="outline">
+                    <mat-label>Gênero</mat-label>
+                    <mat-select formControlName="sexo" name="sexo" id="sexo">
+                        <mat-option value="M">Masculino</mat-option>
+                        <mat-option value="F">Feminino</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="inventarioComportamental.get('sexo').errors?.required">
+                        Selecione o seu gênero
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <p>
+                Estas questões fazem parte da entrevista e não tem respostas mais ou menos adequadas. Tem como objetivo principal conhece-lo melhor quanto as perspectivas de atuaçãoem seu trabalho. Assinale as alternativas que mais motivam você ao desempenhar suas atividades
+                profissionais, utilize o tempo que julgar necessário.
+            </p>
+
+            <div class="row perguntas-inventario" style="">
+                <div div class="col-md-6" *ngFor="let alternativa of perguntas.alternativas;">
+                    <label>
+          <mat-checkbox type="text" name="alternativas" id="alternativas{{alternativa.id}}" #checkbox="matCheckbox" (click)="adicionarPergunta(checkbox, alternativa.id, alternativa.texto)">{{ alternativa.texto }}</mat-checkbox>
+        </label>
+                </div>
+                <mat-error *ngIf="errorMsgAlternativas">
+                    {{ errorMsgAlternativas }}
+                </mat-error>
+            </div>
+
+            <div [hidden]="this.laudo != null">
+                <mat-error *ngIf="!inventarioComportamental.valid || errorMsgAlternativas || errorMsgIdade" class="mb-2">
+                    Não é possível salvar suas alterações. Existem campos obrigatório que não foram preenchidos corretamente!
+                </mat-error>
+                <ul>
+                    <li *ngIf="inventarioComportamental.get('nome').errors?.required">
+                        <mat-error>Informe seu Nome Completo!</mat-error>
+                    </li>
+                    <li *ngIf="inventarioComportamental.get('cargo').errors?.required">
+                        <mat-error>Informe seu Cargo!</mat-error>
+                    </li>
+                    <li *ngIf="inventarioComportamental.get('dataNascimento').errors?.required">
+                        <mat-error>A Data de Nascimento não foi preenchida ou foi preenchida incorretamente!</mat-error>
+                    </li>
+                    <li *ngIf="errorMsgIdade">
+                        <mat-error>{{ errorMsgIdade }}</mat-error>
+                    </li>
+
+                    <mat-error *ngIf="inventarioComportamental.get('cpf').getError('cpfNotValid')">
+                        <mat-error>O CPF não é válido.</mat-error>
+                    </mat-error>
+                    <li *ngIf="inventarioComportamental.get('cpf').errors?.required">
+                        <mat-error>Informe seu CPF!</mat-error>
+                    </li>
+
+                    <li *ngIf="inventarioComportamental.get('celular').errors?.required">
+                        <mat-error>Informe um celular!</mat-error>
+                    </li>
+
+                    <li *ngIf="inventarioComportamental.get('sexo').errors?.required">
+                        <mat-error>Informe o seu gênero!</mat-error>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </form>
+
+    <div style="width: 100%; text-align: center;" *ngIf="this.laudo == null">
+        <button mat-raised-button type="button" color="primary" routerLink="/cadastro-express" style="margin: 10px; background-color: #8dbac6; color: white;">
+      Voltar
+    </button>
+        <button mat-raised-button type="button" *ngIf="false" color="primary" (click)="salvar()" style="margin: 10px; background-color: #8dbac6; color: white;">
+      Salvar
+    </button>
+        <button mat-raised-button type="button" color="primary" (click)="salvarEcontinuar() " style="background-color: #40ad6d; color: white;"><mat-icon>arrow_forward</mat-icon>Próxima Etapa</button>
+    </div>
+
+    <div style="width: 100%; text-align: center;" *ngIf="this.laudo != null">
+        <button mat-raised-button type="button" color="primary" routerLink="/cadastro-express" style="margin: 10px; background-color: #8dbac6; color: white;">
+      Voltar
+    </button>
+        <button mat-raised-button type="button" color="primary" (click)="avancarEtapa()" style="background-color: #40ad6d; color: white;">
+      Próxima Etapa
+    </button>
+    </div>
+</section>

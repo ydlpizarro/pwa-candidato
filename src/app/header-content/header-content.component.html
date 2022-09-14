@@ -1,0 +1,101 @@
+<mat-toolbar>
+  <button
+    type="button"
+    aria-label="Toggle sidenav"
+    mat-icon-button
+    (click)="drawer.toggle()"
+    *ngIf="isHandset$ | async">
+    <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+  </button>
+  <img (click)="irPara('/candidato/#/')" src="assets/img/logo-empresa.jpg" class="logo-reachr">
+  <span class="example-spacer"></span>
+</mat-toolbar>
+
+
+<mat-sidenav-container class="example-sidenav-container" >
+  <mat-sidenav #drawer class="sidenav" fixedInViewport="false"
+               [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+               [mode]="(isHandset$ | async) ? 'over' : 'side'"
+               [opened]="!(isHandset$ | async)" style="background-color: #3a4e62;">
+    <mat-nav-list>
+
+<!--      <mat-expansion-panel (opened)="panelOpenState = true"(closed)="panelOpenState = false">-->
+<!--        <mat-expansion-panel-header>-->
+<!--          <mat-panel-title>-->
+<!--            <mat-icon class="nav-icon">person</mat-icon><span class="nav-iten">Perfil</span>-->
+<!--          </mat-panel-title>-->
+
+<!--        </mat-expansion-panel-header>-->
+
+
+<!--        <button (click)="irPara('https://www.reachr.com.br/candidato/#/dados-basicos')" mat-menu-item>Cadastro</button>-->
+<!--        <button (click)="irPara('https://www.reachr.com.br/candidato/#/perfil-publico')"mat-menu-item>Perfil Público</button>-->
+
+<!--        <button (click)="irPara('https://www.reachr.com.br/candidato/#/interesses')"mat-menu-item>Interesses</button>-->
+
+<!--        <button (click)="irPara('https://www.reachr.com.br/candidato/#/minha-conta')"mat-menu-item>Minha Conta</button>-->
+<!--        <button (click)="irPara('https://www.reachr.com.br/candidato/#/historico-acoes')" mat-menu-item>Histórico de Ações</button>-->
+<!--        <button (click)="irPara('https://www.reachr.com.br/candidato/#/amigos')" mat-menu-item>Amigos</button>-->
+<!--      </mat-expansion-panel>-->
+
+<!--      <mat-menu #perfil="matMenu" >-->
+<!--        <button (click)="irPara('https://www.reachr.com.br/candidato/#/dados-basicos')" mat-menu-item>Cadastro</button>-->
+<!--        <button (click)="irPara('https://www.reachr.com.br/candidato/#/perfil-publico')"mat-menu-item>Perfil Público</button>-->
+<!--        <button (click)="irPara('https://www.reachr.com.br/candidato/#/interesses')"mat-menu-item>Interesses</button>-->
+<!--        <button (click)="irPara('https://www.reachr.com.br/candidato/#/minha-conta')"mat-menu-item>Minha Conta</button>-->
+<!--        <button (click)="irPara('https://www.reachr.com.br/candidato/#/historico-acoes')" mat-menu-item>Histórico de Ações</button>-->
+<!--        <button (click)="irPara('https://www.reachr.com.br/candidato/#/amigos')" mat-menu-item>Amigos</button>-->
+<!--      </mat-menu>-->
+
+<!--      <a mat-list-item routerLink="."><mat-icon class="nav-icon">work</mat-icon>-->
+<!--        <span (click)="irPara('https://www.reachr.com.br/candidato/#/vagas/listar')"class="nav-iten">Vagas</span>-->
+<!--      </a>-->
+
+      <!------
+      <a mat-list-item routerLink="." [matMenuTriggerFor]="carreira"><mat-icon class="nav-icon"> insert_chart_outlined</mat-icon>
+          <span class="nav-iten">Carreira</span>
+      </a>
+      -->
+
+<!--      <a mat-list-item routerLink="."><mat-icon class="nav-icon"> insert_chart_outlined</mat-icon>-->
+<!--        <span (click)="irPara('https://www.reachr.com.br/candidato/#/empregabilidade')" class="nav-iten">Índice de Empregabilidade</span>-->
+<!--      </a>-->
+
+<!--      <a mat-list-item routerLink="."><mat-icon class="nav-icon"> insert_chart_outlined</mat-icon>-->
+<!--        <span (click)="irPara('https://www.reachr.com.br/candidato/#/inventario-comportamental')" class="nav-iten">Inventário Corportamental</span>-->
+<!--      </a>-->
+
+      <!---Sub menu do "Carreiras"----
+      <mat-menu #carreira="matMenu">
+              <button (click)="irPara('https://www.reachr.com.br/candidato/#/empregabilidade')" mat-menu-item>Índice de Empregabilidade</button>
+              <button (click)="irPara('https://www.reachr.com.br/candidato/#/inventario-comportamental')" mat-menu-item>Inventário Corportamental</button>
+      </mat-menu>
+      -->
+
+<!--      <a mat-list-item routerLink="."><mat-icon class="nav-icon"> format_align_left</mat-icon>-->
+<!--        <span (click)="irPara('http://reachr.com.br/blog')" class="nav-iten">Blog</span>-->
+<!--      </a>-->
+<!--      <a mat-list-item routerLink="."><mat-icon class="nav-icon"> phone</mat-icon>-->
+<!--        <span (click)="irPara('https://www.reachr.com.br/candidato/#/contato')" class="nav-iten">Contatar a Reachr</span>-->
+<!--      </a>-->
+      <!------Remoção botão Baixe o App----
+        <a mat-list-item routerLink="."><mat-icon class="nav-icon">get_app</mat-icon>
+            <span (click)="irPara('https://www.reachr.com.br/candidato/#/baixar-app')" class="nav-iten">Baixe o App</span>
+        </a>
+      ---->
+
+<!--      <a mat-list-item (click)="sair()" style="background-color: #FF9F00"><mat-icon class="nav-icon">keyboard_tab</mat-icon>-->
+<!--        <span class="nav-iten">Sair</span>-->
+<!--      </a>-->
+      <a mat-list-item (click)="irPara('/candidato/#/')" style="background-color: #FF9F00;"><mat-icon class="nav-icon">keyboard_backspace</mat-icon>
+        <span class="nav-iten">Voltar</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <app-breadcrumb></app-breadcrumb>
+
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
